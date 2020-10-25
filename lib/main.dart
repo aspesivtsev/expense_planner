@@ -30,11 +30,21 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          Card(
-            child: Text("CHART!"),
+          Container(
+            width: double.infinity,
+            child: Card(
+              child: Text(
+                "CHART!",
+                style: TextStyle(fontSize: 20),
+              ),
+              elevation: 8,
+              color: Colors.amber,
+            ),
           ),
           Card(
             child: Text("Text"),
+            elevation: 8,
+            color: Colors.blue,
           ),
         ],
       ),
