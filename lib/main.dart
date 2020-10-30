@@ -57,11 +57,14 @@ class MyHomePage extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.pink, width: 2),
+                      ),
                       child: Text(tx.amount.toString()),
                       margin:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     ),
-                    decoration: BoxDecoration(border: Border.all(),),
                     Column(
                       children: [
                         Text(tx.title),
