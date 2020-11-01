@@ -45,7 +45,9 @@ class MyHomePage extends StatelessWidget {
             child: Card(
               child: Text(
                 "CHART!",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
               elevation: 8,
               color: Colors.amber,
@@ -58,16 +60,43 @@ class MyHomePage extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.pink, width: 2),
+                        border: Border.all(
+                            color: tx.amount > 50
+                                ? Colors.redAccent
+                                : Colors.green,
+                            width: 2),
                       ),
-                      child: Text(tx.amount.toString()),
+                      child: Text(
+                        tx.amount.toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: (15),
+                          color:
+                              tx.amount > 50 ? Colors.redAccent : Colors.green,
+                        ),
+                      ),
                       margin:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     ),
                     Column(
                       children: [
-                        Text(tx.title),
+                        Text(
+                          tx.title,
+                          style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 8.0,
+                                  color: Colors.grey,
+                                  offset: Offset(3.0, 3.0),
+                                ),
+                              ],
+                              fontWeight: FontWeight.bold,
+                              fontSize: (15),
+                              color: Colors.blue[900]),
+                          textAlign: TextAlign.left,
+                        ),
                         Text(tx.date.toString()),
                       ],
                     ),
