@@ -81,6 +81,7 @@ class MyHomePage extends StatelessWidget {
                           EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           tx.title,
@@ -95,7 +96,7 @@ class MyHomePage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: (15),
                               color: Colors.blue[900]),
-                          textAlign: TextAlign.left,
+                          textAlign: TextAlign.right,
                         ),
                         Text(tx.date.toString()),
                       ],
