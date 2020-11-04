@@ -24,9 +24,9 @@ class MyHomePage extends StatelessWidget {
   final String title;
   final List<Transaction> transactions = [
     Transaction(
-        id: 't1', title: 'New shoes', amount: 69.99, date: DateTime.now()),
+        id: 't1', title: 'Трусики', amount: 69.99, date: DateTime.now()),
     Transaction(
-        id: 't2', title: 'New shirt', amount: 37.00, date: DateTime.now()),
+        id: 't2', title: 'Бухлишко', amount: 37.00, date: DateTime.now()),
   ];
 
   @override
@@ -67,7 +67,8 @@ class MyHomePage extends StatelessWidget {
                             width: 2),
                       ),
                       child: Text(
-                        tx.amount.toString(),
+                        '₽ ' + tx.amount.toString(),
+                        // or like this if it is a dollar sign '\$ ${tx.amount}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: (15),
@@ -88,9 +89,9 @@ class MyHomePage extends StatelessWidget {
                           style: TextStyle(
                               shadows: [
                                 Shadow(
-                                  blurRadius: 8.0,
-                                  color: Colors.grey,
-                                  offset: Offset(3.0, 3.0),
+                                  blurRadius: 7.0,
+                                  color: Colors.grey[400],
+                                  offset: Offset(1.0, 1.0),
                                 ),
                               ],
                               fontWeight: FontWeight.bold,
@@ -98,7 +99,10 @@ class MyHomePage extends StatelessWidget {
                               color: Colors.blue[900]),
                           textAlign: TextAlign.right,
                         ),
-                        Text(tx.date.toString()),
+                        Text(
+                          tx.date.toString(),
+                          style: TextStyle(color: Colors.grey),
+                        ),
                       ],
                     ),
                   ],
