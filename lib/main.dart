@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import './transaction.dart';
+
+//initializeDateFormatting('ru_RU', Null);
 
 void main() {
   runApp(MyApp());
@@ -22,6 +26,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
+
   final List<Transaction> transactions = [
     Transaction(
         id: 't1', title: 'Трусики', amount: 69.99, date: DateTime.now()),
@@ -68,7 +73,8 @@ class MyHomePage extends StatelessWidget {
                       ),
                       child: Text(
                         '₽ ' + tx.amount.toString(),
-                        // or like this if it is a dollar sign '\$ ${tx.amount}',
+                        // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
+                        // or '\$ ' + tx.amount.toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: (15),
@@ -100,7 +106,11 @@ class MyHomePage extends StatelessWidget {
                           textAlign: TextAlign.right,
                         ),
                         Text(
-                          tx.date.toString(),
+                          //the first variant is more customizable
+                          //https://api.flutter.dev/flutter/intl/DateFormat-class.html
+                          //DateFormat('d MMMM y H:mm').format(tx.date),
+                          DateFormat.yMMMMEEEEd().format(tx.date),
+
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
