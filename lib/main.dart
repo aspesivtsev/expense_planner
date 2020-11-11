@@ -18,31 +18,39 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter App Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  //MyHomePage({Key key, this.title}) : super(key: key);
+  //final String title;
 
   final List<Transaction> transactions = [
     Transaction(
-        id: 't1', title: 'Трусики', amount: 69.99, date: DateTime.now()),
+        id: 't1', title: 'Трусики', amount: 59.99, date: DateTime.now()),
     Transaction(
         id: 't2', title: 'Бухлишко', amount: 37.00, date: DateTime.now()),
   ];
 
   @override
+  //initializeDateFormatting();
+  DateFormat dateFormat;
+  DateFormat timeFormat;
+
   Widget build(BuildContext context) {
+    initializeDateFormatting();
+    dateFormat = new DateFormat.yMMMMEEEEd('ru');
+    timeFormat = new DateFormat.Hm('ru');
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 35,
         title: Text("Expense Planner"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -64,6 +72,7 @@ class MyHomePage extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
+                      width: 100,
                       decoration: BoxDecoration(
                         border: Border.all(
                             color: tx.amount > 50
@@ -109,8 +118,12 @@ class MyHomePage extends StatelessWidget {
                           //the first variant is more customizable
                           //https://api.flutter.dev/flutter/intl/DateFormat-class.html
                           //DateFormat('d MMMM y H:mm').format(tx.date),
-                          DateFormat.yMMMMEEEEd().format(tx.date),
-
+                          //DateFormat.yMMMMEEEEd().format(tx.date),
+                          dateFormat.format(tx.date),
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        Text(
+                          timeFormat.format(tx.date),
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
