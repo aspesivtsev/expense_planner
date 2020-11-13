@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     initializeDateFormatting();
-    dateFormat = new DateFormat.yMMMMd('ru');
+    dateFormat = new DateFormat.yMMMMEEEEd('ru');
     timeFormat = new DateFormat.Hms('ru');
   }
 

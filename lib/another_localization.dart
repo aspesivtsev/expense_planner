@@ -3,10 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import './transaction.dart';
 
-//initializeDateFormatting('ru_RU', Null);
-
 void main() {
-  runApp(MyApp());
+  initializeDateFormatting('ru', null).then((_) => (MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -35,14 +33,13 @@ class MyHomePage extends StatelessWidget {
   ];
 
   @override
-  //initializeDateFormatting();
   DateFormat dateFormat;
   DateFormat timeFormat;
 
   Widget build(BuildContext context) {
-    initializeDateFormatting();
-    dateFormat = new DateFormat.yMMMMEEEEd('ru');
-    timeFormat = new DateFormat.Hm('ru');
+    //initializeDateFormatting();
+    dateFormat = new DateFormat.yMMMMEEEEd();
+    timeFormat = new DateFormat.Hm();
 
     return Scaffold(
       appBar: AppBar(
