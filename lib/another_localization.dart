@@ -5,7 +5,7 @@ import './transaction.dart';
 
 void main() {
   //initializeDateFormatting('ru', null).then((_) => (MyApp()));
-  initializeDateFormatting('ru').then((_) => runApp(MyApp()));
+  initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   //MyHomePage({Key key, this.title}) : super(key: key);
   //final String title;
-
+  DateFormat dateFormat;
+  DateFormat timeFormat;
   final List<Transaction> transactions = [
     Transaction(
         id: 't1', title: 'Трусики', amount: 59.99, date: DateTime.now()),
@@ -34,9 +35,6 @@ class MyHomePage extends StatelessWidget {
   ];
 
   @override
-  DateFormat dateFormat;
-  DateFormat timeFormat;
-
   Widget build(BuildContext context) {
     //initializeDateFormatting();
     dateFormat = new DateFormat.yMMMMEEEEd('ru');
