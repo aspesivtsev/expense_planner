@@ -39,11 +39,12 @@ class MyHomePage extends StatelessWidget {
         id: 't2',
         title: 'Чаевые',
         amount: 500.00,
-        date: DateTime.parse("2020-11-15 09:00")),
+        date: DateTime.parse("2020-11-14 09:00")),
   ];
 
   @override
   //initializeDateFormatting();
+
   DateFormat dateFormat;
   DateFormat timeFormat;
 
