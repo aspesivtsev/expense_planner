@@ -28,10 +28,12 @@ class MyHomePage extends StatelessWidget {
   DateFormat dateFormat;
   DateFormat timeFormat;
   final List<Transaction> transactions = [
+    Transaction(id: 't1', title: 'Отель', amount: 59.99, date: DateTime.now()),
     Transaction(
-        id: 't1', title: 'Трусики', amount: 59.99, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'Бухлишко', amount: 37.00, date: DateTime.now()),
+        id: 't2',
+        title: 'Канатная дорога',
+        amount: 37.00,
+        date: DateTime.now()),
   ];
 
   @override

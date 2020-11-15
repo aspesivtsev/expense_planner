@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import './transaction.dart';
 
-//initializeDateFormatting('ru_RU', Null);
+//initializeDateFormatting('ru', Null);
 
 void main() {
   runApp(MyApp());
@@ -29,9 +29,17 @@ class MyHomePage extends StatelessWidget {
 
   final List<Transaction> transactions = [
     Transaction(
-        id: 't1', title: 'Трусики', amount: 59.99, date: DateTime.now()),
+        id: 't1',
+        title: 'Проживание в отеле',
+        amount: 6000.00,
+        date: DateTime.now()),
     Transaction(
-        id: 't2', title: 'Бухлишко', amount: 37.00, date: DateTime.now()),
+        id: 't2', title: 'Завтрак', amount: 550.00, date: DateTime.now()),
+    Transaction(
+        id: 't2',
+        title: 'Чаевые',
+        amount: 500.00,
+        date: DateTime.parse("2020-11-15 09:00")),
   ];
 
   @override
@@ -76,7 +84,7 @@ class MyHomePage extends StatelessWidget {
                       width: 100,
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: tx.amount > 50
+                            color: tx.amount > 2000
                                 ? Colors.redAccent
                                 : Colors.green,
                             width: 2),
@@ -88,8 +96,9 @@ class MyHomePage extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: (15),
-                          color:
-                              tx.amount > 50 ? Colors.redAccent : Colors.green,
+                          color: tx.amount > 2000
+                              ? Colors.redAccent
+                              : Colors.green,
                         ),
                       ),
                       margin:
@@ -120,17 +129,12 @@ class MyHomePage extends StatelessWidget {
                           //https://api.flutter.dev/flutter/intl/DateFormat-class.html
                           //DateFormat('d MMMM y H:mm').format(tx.date),
                           //DateFormat.yMMMMEEEEd().format(tx.date),
-                          dateFormat.format(tx.date),
+                          dateFormat.format(
+                              tx.date), //we can add .toUpperCase for example
                           style: TextStyle(color: Colors.grey),
                         ),
-                        Text(
-                          //the first variant is more customizable
-                          //https://api.flutter.dev/flutter/intl/DateFormat-class.html
-                          //DateFormat('d MMMM y H:mm').format(tx.date),
-                          //DateFormat.yMMMMEEEEd().format(tx.date),
-                          day,
-                          style: TextStyle(color: Colors.grey),
-                        ),
+                        //если нужно выделить отдельно год например и совместить с текстом
+                        //Text("Year ${tx.date.year.toString()}"),
                         Text(
                           timeFormat.format(tx.date),
                           style: TextStyle(color: Colors.grey),
