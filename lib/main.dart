@@ -34,11 +34,11 @@ class MyHomePage extends StatelessWidget {
         amount: 6000.00,
         date: DateTime.now()),
     Transaction(
-        id: 't2', title: 'Завтрак', amount: 550.00, date: DateTime.now()),
+        id: 't2', title: 'Завтрак', amount: 1100.00, date: DateTime.now()),
     Transaction(
         id: 't2',
         title: 'Чаевые',
-        amount: 500.00,
+        amount: 600.00,
         date: DateTime.parse("2020-11-14 09:00")),
   ];
 
@@ -75,6 +75,14 @@ class MyHomePage extends StatelessWidget {
               color: Colors.amber,
             ),
           ),
+          Card(
+              elevation: 8,
+              child: Column(
+                children: [
+                  TextField(),
+                  TextField(),
+                ],
+              )),
           Column(
             children: transactions.map((tx) {
               String day = dateFormat.format(tx.date).toUpperCase();
