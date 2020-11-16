@@ -76,12 +76,22 @@ class MyHomePage extends StatelessWidget {
             ),
           ),
           Card(
+              //margin: EdgeInsets.all(10),
               elevation: 8,
-              child: Column(
-                children: [
-                  TextField(),
-                  TextField(),
-                ],
+              child: Container(
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Заголовок'),
+                    ),
+                    TextField(decoration: InputDecoration(labelText: 'Сумма')),
+                    FlatButton(
+                        textColor: Colors.green,
+                        child: Text('Добавить'),
+                        onPressed: () {}),
+                  ],
+                ),
               )),
           Column(
             children: transactions.map((tx) {
