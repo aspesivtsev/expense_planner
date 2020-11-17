@@ -86,6 +86,7 @@ class MyHomePage extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(15),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     TextField(
                       decoration: InputDecoration(labelText: 'Заголовок'),
@@ -99,7 +100,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                     FlatButton(
                         shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(5.0)),
+                            borderRadius: new BorderRadius.circular(3.0)),
                         color: Colors.blue[100],
                         textColor: Colors.blue,
                         child: Text('Добавить'),
