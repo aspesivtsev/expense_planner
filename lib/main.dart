@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import './transaction.dart';
@@ -55,8 +56,12 @@ class MyHomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         toolbarHeight: 35,
-        title: Text("Expense Planner"),
+        title: Text(
+          "планировщик расходов".toUpperCase(),
+          style: TextStyle(fontSize: 17),
+        ),
       ),
       body: Column(
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -85,9 +90,18 @@ class MyHomePage extends StatelessWidget {
                     TextField(
                       decoration: InputDecoration(labelText: 'Заголовок'),
                     ),
-                    TextField(decoration: InputDecoration(labelText: 'Сумма')),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Сумма'),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                    ),
                     FlatButton(
-                        textColor: Colors.green,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(5.0)),
+                        color: Colors.blue[100],
+                        textColor: Colors.blue,
                         child: Text('Добавить'),
                         onPressed: () {}),
                   ],
