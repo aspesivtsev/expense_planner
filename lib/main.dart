@@ -43,12 +43,15 @@ class MyHomePage extends StatelessWidget {
         date: DateTime.parse("2020-11-14 09:00")),
   ];
 
-  @override
   //initializeDateFormatting();
 
   DateFormat dateFormat;
   DateFormat timeFormat;
 
+  String titleInput;
+  String amountInput;
+
+  @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
     dateFormat = new DateFormat.yMMMMEEEEd('ru');
@@ -87,9 +90,13 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.all(15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
+                  children: <Widget>[
                     TextField(
                       decoration: InputDecoration(labelText: 'Заголовок'),
+                      onChanged: (val) {
+                        titleInput = val;
+                        print(val);
+                      },
                     ),
                     TextField(
                       decoration: InputDecoration(labelText: 'Сумма'),
@@ -97,6 +104,8 @@ class MyHomePage extends StatelessWidget {
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.digitsOnly
                       ],
+                      onChanged: (val) => amountInput =
+                          val, //this is shorter variant but with 1 line only
                     ),
                     FlatButton(
                         shape: new RoundedRectangleBorder(
@@ -104,7 +113,10 @@ class MyHomePage extends StatelessWidget {
                         color: Colors.blue[100],
                         textColor: Colors.blue,
                         child: Text('Добавить'),
-                        onPressed: () {}),
+                        onPressed: () {
+                          print(titleInput);
+                          print(amountInput);
+                        }),
                   ],
                 ),
               )),
