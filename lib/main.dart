@@ -103,6 +103,8 @@ class MyHomePage extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.digitsOnly
+                        //DecimalTextInputFormatter(decimalRange: 2)
+                        //https://stackoverflow.com/questions/54454983/allow-only-two-decimal-number-in-flutter-input/54456978
                       ],
                       onChanged: (val) => amountInput =
                           val, //this is shorter variant but with 1 line only
