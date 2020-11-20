@@ -97,10 +97,10 @@ class MyHomePage extends StatelessWidget {
                     TextField(
                       controller: titleController,
                       decoration: InputDecoration(labelText: 'Заголовок'),
-                      onChanged: (val) {
+                      /*onChanged: (val) {
                         titleInput = val;
                         print(titleInput);
-                      },
+                      },*/
                     ),
                     TextField(
                       decoration: InputDecoration(labelText: 'Сумма'),
@@ -122,7 +122,8 @@ class MyHomePage extends StatelessWidget {
                         textColor: Colors.blue,
                         child: Text('Добавить'),
                         onPressed: () {
-                          print(titleInput);
+                          //print(titleInput);
+                          print(titleController.text);
                           print(amountController.text);
                         }),
                   ],
