@@ -51,6 +51,9 @@ class MyHomePage extends StatelessWidget {
   String titleInput;
   String amountInput;
 
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting();
@@ -92,20 +95,23 @@ class MyHomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     TextField(
+                      controller: titleController,
                       decoration: InputDecoration(labelText: 'Заголовок'),
                       onChanged: (val) {
                         titleInput = val;
-                        print(val);
+                        print(titleInput);
                       },
                     ),
                     TextField(
                       decoration: InputDecoration(labelText: 'Сумма'),
                       keyboardType: TextInputType.number,
+                      controller: amountController,
+                      //keyboardType: TextInputType.numberWithOptions(decimal: true),
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.digitsOnly
+                        //FilteringTextInputFormatter.allow(RegExp('[0-9.,]')),
                       ],
-                      onChanged: (val) => amountInput =
-                          val, //this is shorter variant but with 1 line only
+                      //onChanged: (val) => amountInput = val, //this is shorter variant but with 1 line only
                     ),
                     FlatButton(
                         shape: new RoundedRectangleBorder(
@@ -115,7 +121,7 @@ class MyHomePage extends StatelessWidget {
                         child: Text('Добавить'),
                         onPressed: () {
                           print(titleInput);
-                          print(amountInput);
+                          print(amountController.text);
                         }),
                   ],
                 ),
