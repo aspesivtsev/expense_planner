@@ -14,7 +14,7 @@ class NewTransaction extends StatelessWidget {
     final enteredAmount = double.parse(amountController.text);
 
     if (enteredData.isEmpty || enteredAmount <= 0) {
-      return;
+      return; //exiting ad skipping addTx
     }
 
     addTx(enteredData, enteredAmount);

@@ -36,25 +36,27 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       //in body we can wrapp it all to SingleChildScrollView() to make the whole body of the app scrollable on the screen
-      body: Column(
-        //mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Card(
-              child: Text(
-                "CHART!",
-                style: TextStyle(
-                  fontSize: 20,
+      body: SingleChildScrollView(
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: Card(
+                child: Text(
+                  "CHART!",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
+                elevation: 8,
+                color: Colors.amber,
               ),
-              elevation: 8,
-              color: Colors.amber,
             ),
-          ),
-          UserTransactions(),
-        ],
+            UserTransactions(),
+          ],
+        ),
       ),
     );
   }
