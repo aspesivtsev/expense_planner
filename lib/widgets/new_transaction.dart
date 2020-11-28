@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //import './user_transactions.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function addTx;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
   NewTransaction(this.addTx);
+
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitData() {
     final enteredData = titleController.text;
@@ -17,11 +24,10 @@ class NewTransaction extends StatelessWidget {
       return; //exiting ad skipping addTx
     }
 
-    addTx(enteredData, enteredAmount);
+    widget.addTx(enteredData, enteredAmount);
+    Navigator.of(context).pop(); //close modal form after entering data
   }
 
-  //String titleInput;
-  //String amountInput;
   @override
   Widget build(BuildContext context) {
     return Card(

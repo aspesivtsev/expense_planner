@@ -36,12 +36,13 @@ class TransactionList extends StatelessWidget {
                           width: 2),
                     ),
                     child: Text(
-                      '₽ ' + tx.amount.toStringAsFixed(2),
+                      '₽ ' +
+                          tx.amount.toStringAsFixed(2), //number shows decimals
                       // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
                       // or '\$ ' + tx.amount.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: (15),
+                        fontSize: (12),
                         color:
                             tx.amount > 2000 ? Colors.redAccent : Colors.green,
                       ),
