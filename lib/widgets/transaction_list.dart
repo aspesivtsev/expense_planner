@@ -32,7 +32,7 @@ class TransactionList extends StatelessWidget {
                       border: Border.all(
                           color: tx.amount > 2000
                               ? Colors.redAccent
-                              : Colors.green,
+                              : Theme.of(context).primaryColorDark,
                           width: 2),
                     ),
                     child: Text(
@@ -43,8 +43,9 @@ class TransactionList extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: (12),
-                        color:
-                            tx.amount > 2000 ? Colors.redAccent : Colors.green,
+                        color: tx.amount > 2000
+                            ? Colors.redAccent
+                            : Theme.of(context).primaryColorDark,
                       ),
                     ),
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -63,9 +64,9 @@ class TransactionList extends StatelessWidget {
                                 offset: Offset(1.0, 1.0),
                               ),
                             ],
-                            fontWeight: FontWeight.bold,
+                            //fontWeight: FontWeight.bold,
                             fontSize: (15),
-                            color: Colors.blue[900]),
+                            color: Theme.of(context).primaryColorDark),
                         textAlign: TextAlign.right,
                       ),
                       Text(

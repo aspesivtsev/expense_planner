@@ -63,7 +63,7 @@ class _NewTransactionState extends State<NewTransaction> {
               FlatButton(
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(3.0)),
-                  color: Colors.blue[100],
+                  color: Theme.of(context).primaryColorLight,
                   textColor: Colors.blue,
                   child: Text('Добавить'),
                   onPressed: () {

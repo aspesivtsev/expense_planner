@@ -15,7 +15,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
+        accentColor: Colors.blue,
+        fontFamily: 'Quicksand',
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 20,
+                //fontWeight: FontWeight.bold,
+              )),
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
@@ -113,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 elevation: 8,
-                color: Colors.amber,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
             TransactionList(_userTransactions),
