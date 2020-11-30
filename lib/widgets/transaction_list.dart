@@ -31,7 +31,7 @@ class TransactionList extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                           color: tx.amount > 2000
-                              ? Colors.redAccent
+                              ? Colors.red
                               : Theme.of(context).primaryColorDark,
                           width: 2),
                     ),
@@ -42,9 +42,9 @@ class TransactionList extends StatelessWidget {
                       // or '\$ ' + tx.amount.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: (12),
+                        fontSize: (14),
                         color: tx.amount > 2000
-                            ? Colors.redAccent
+                            ? Colors.red
                             : Theme.of(context).primaryColorDark,
                       ),
                     ),
@@ -56,7 +56,10 @@ class TransactionList extends StatelessWidget {
                     children: [
                       Text(
                         tx.title,
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.headline6,
+                        /*
+                        //old versio with manual coloring
+                        TextStyle(
                             shadows: [
                               Shadow(
                                 blurRadius: 7.0,
@@ -66,7 +69,7 @@ class TransactionList extends StatelessWidget {
                             ],
                             //fontWeight: FontWeight.bold,
                             fontSize: (15),
-                            color: Theme.of(context).primaryColorDark),
+                            color: Theme.of(context).primaryColorDark),*/
                         textAlign: TextAlign.right,
                       ),
                       Text(
