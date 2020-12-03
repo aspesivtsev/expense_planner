@@ -1,9 +1,9 @@
 //import 'package:expense_planner/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
 import './models/transaction.dart';
-
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
+import './widgets/chart.dart';
 import 'dart:math';
 //initializeDateFormatting('ru', Null);
 
@@ -46,7 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    /*Transaction(
+    Transaction(
         id: 't1',
         title: 'Проживание в отеле',
         amount: 6000.00,
@@ -60,8 +60,16 @@ class _MyHomePageState extends State<MyHomePage> {
         id: 't3',
         title: 'Чаевые',
         amount: 600.00,
-        date: DateTime.parse("2020-11-14 09:00")),*/
+        date: DateTime.parse("2020-11-14 09:00")),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    });
+  }
 
   void _addNewTransaction(String txTitle, double txAmount) {
     Random random = new Random();
@@ -121,16 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               width: double.infinity,
-              child: Card(
-                child: Text(
-                  "CHART!",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                elevation: 7,
-                color: Theme.of(context).primaryColorLight,
-              ),
+              child: Chart(_recentTransactions),
             ),
             TransactionList(_userTransactions),
           ],

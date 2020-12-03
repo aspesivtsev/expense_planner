@@ -7,13 +7,24 @@ class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
 
   Chart(this.recentTransactions);
+
   List<Map<String, Object>> get groupedTransactionValues {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().substract(
         Duration(days: index),
       );
-      print(weekDay);
-      return {'day': DateFormat.E(), 'amount': 9.99};
+      var totalSum = 0.0;
+      for (var i = 0; i < recentTransactions.length; i++){
+        if (recentTransactions[i].date.day == weekDay.day &&
+        recentTransactions[i].date.month == weekDay.month &&
+        recentTransactions[i].date.year == weekDay.year &&) {
+          totalSum += recentTransactions[i].amount;
+        }
+      };
+
+      print(DateFormat.E(weekDay));
+      print(totalSum);
+      return {'day': DateFormat.E(weekDay), 'amount': totalSum;
     });
   }
 
@@ -22,6 +33,7 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
+      color: Theme.of(context).primaryColorLight,
       child: Row(
         children: <Widget>[],
       ),
