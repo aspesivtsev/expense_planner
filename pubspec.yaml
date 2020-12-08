@@ -67,7 +67,7 @@ flutter:
         - asset: assets/fonts/OpenSans-Regular.ttf
         - asset: assets/fonts/OpenSans-Bold.ttf
           weight: 700  
-          # style: bold
+
     - family: Quicksand
       fonts:
         - asset: assets/fonts/Quicksand-Regular.ttf

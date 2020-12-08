@@ -101,7 +101,7 @@ class TransactionList extends StatelessWidget {
                                 //the first variant is more customizable
                                 //https://api.flutter.dev/flutter/intl/DateFormat-class.html
                                 //DateFormat('d MMMM y H:mm').format(tx.date),
-                                //DateFormat.yMMMMEEEEd().format(tx.date),
+                                //DateFormat.yMMMMEEEEd('ru').format(tx.date),//works fine with russian too
                                 dateFormat.format(tx
                                     .date), //we can add .toUpperCase for example
                                 style: TextStyle(color: Colors.grey),
