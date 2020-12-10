@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         id: 't2',
         title: 'Завтрак',
         amount: 1100.00,
-        date: DateTime.parse("2020-12-04 11:30")),
+        date: DateTime.parse("2020-12-08 11:30")),
     Transaction(
         id: 't3',
         title: 'Чаевые',
