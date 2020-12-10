@@ -1,4 +1,4 @@
-import 'package:expense_planner/models/transaction.dart';
+import 'chart_bar.dart';
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
@@ -39,7 +39,9 @@ class Chart extends StatelessWidget {
       color: Theme.of(context).primaryColorLight,
       child: Row(
         children: groupedTransactionValues.map((data) {
-          return Text('${data['day']} : ${data['amount'].toString()}');
+          return ChartBar(data['day'], data['amount'], ) 
+          //Text('${data['day']} : ${data['amount'].toString()}');
+
         }).toList(),
       ),
     );
