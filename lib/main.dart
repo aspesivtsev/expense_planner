@@ -5,6 +5,8 @@ import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
 import 'dart:math';
+import 'package:intl/date_symbol_data_local.dart';
+
 //initializeDateFormatting('ru', Null);
 
 void main() => runApp(MyApp());
@@ -46,7 +48,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-    Transaction(
+    /*Transaction(
         id: 't1',
         title: 'Проживание в отеле',
         amount: 6000.00,
@@ -60,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         id: 't3',
         title: 'Чаевые',
         amount: 600.00,
-        date: DateTime.parse("2020-12-07 09:00")),
+        date: DateTime.parse("2020-12-07 09:00")),*/
   ];
 
   List<Transaction> get _recentTransactions {
@@ -106,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('ru');
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

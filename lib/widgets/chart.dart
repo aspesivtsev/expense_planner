@@ -30,6 +30,14 @@ class Chart extends StatelessWidget {
     });
   }
 
+  double get totalSpending {
+    //fold функция которая список переводит в другой формат, где над каждым элементом списка производится какое-то действие
+    //также задается начальное значение 0.0, в данном случае суммируются элементы (видео из секции 102)
+    return groupedTransactionValues.fold(0.0, (sum, item) {
+      return sum + item['amount'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     print(groupedTransactionValues);
@@ -37,12 +45,23 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: EdgeInsets.all(20),
       color: Theme.of(context).primaryColorLight,
-      child: Row(
-        children: groupedTransactionValues.map((data) {
-          return ChartBar(data['day'], data['amount'], ) 
-          //Text('${data['day']} : ${data['amount'].toString()}');
-
-        }).toList(),
+      child: Container(
+        padding: EdgeInsets.all(5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactionValues.map((data) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                  data['day'],
+                  data['amount'],
+                  totalSpending == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / totalSpending),
+            );
+            //Text('${data['day']} : ${data['amount'].toString()}');
+          }).toList(),
+        ),
       ),
     );
   }

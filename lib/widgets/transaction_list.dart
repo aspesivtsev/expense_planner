@@ -13,7 +13,7 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initializeDateFormatting();
+    initializeDateFormatting('ru');
     dateFormat = new DateFormat.yMMMMEEEEd('ru');
     timeFormat = new DateFormat.Hm('ru');
 
@@ -74,45 +74,48 @@ class TransactionList extends StatelessWidget {
                               EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                           alignment: Alignment.center,
                         ),
-                        Container(
-                          padding: EdgeInsets.only(left: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                tx.title,
-                                style: Theme.of(context).textTheme.headline6,
-                                /*
-                          //old versio with manual coloring
-                          TextStyle(
-                              shadows: [
-                                Shadow(
-                                  blurRadius: 7.0,
-                                  color: Colors.grey[400],
-                                  offset: Offset(1.0, 1.0),
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: Container(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tx.title,
+                                  style: Theme.of(context).textTheme.headline6,
+                                  /*
+                            //old versio with manual coloring
+                            TextStyle(
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 7.0,
+                                    color: Colors.grey[400],
+                                    offset: Offset(1.0, 1.0),
+                                  ),
+                                ],
+                                //fontWeight: FontWeight.bold,
+                                fontSize: (15),
+                                color: Theme.of(context).primaryColorDark),*/
+                                  textAlign: TextAlign.left,
+                                ),
+                                Text(
+                                  //the first variant is more customizable
+                                  //https://api.flutter.dev/flutter/intl/DateFormat-class.html
+                                  //DateFormat('d MMMM y H:mm').format(tx.date),
+                                  //DateFormat.yMMMMEEEEd('ru').format(tx.date),//works fine with russian too
+                                  dateFormat.format(tx
+                                      .date), //we can add .toUpperCase for example
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                //если нужно выделить отдельно год например и совместить с текстом
+                                //Text("Year ${tx.date.year.toString()}"),
+                                Text(
+                                  timeFormat.format(tx.date),
+                                  style: TextStyle(color: Colors.grey),
                                 ),
                               ],
-                              //fontWeight: FontWeight.bold,
-                              fontSize: (15),
-                              color: Theme.of(context).primaryColorDark),*/
-                                textAlign: TextAlign.right,
-                              ),
-                              Text(
-                                //the first variant is more customizable
-                                //https://api.flutter.dev/flutter/intl/DateFormat-class.html
-                                //DateFormat('d MMMM y H:mm').format(tx.date),
-                                //DateFormat.yMMMMEEEEd('ru').format(tx.date),//works fine with russian too
-                                dateFormat.format(tx
-                                    .date), //we can add .toUpperCase for example
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              //если нужно выделить отдельно год например и совместить с текстом
-                              //Text("Year ${tx.date.year.toString()}"),
-                              Text(
-                                timeFormat.format(tx.date),
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
