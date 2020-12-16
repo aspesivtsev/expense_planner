@@ -37,11 +37,11 @@ class ChartBar extends StatelessWidget {
             SizedBox(
               height: 4,
             ),
-            //TODO: сделать лэйбл внизу, а не наверху
-            Text(label),
           ],
         ),
       ),
+      //TODO: сделать лэйбл внизу, а не наверху
+      Text(label),
     ]);
   }
 }
