@@ -45,18 +45,23 @@ class TransactionList extends StatelessWidget {
                   return ListTile(
                     leading: CircleAvatar(
                       radius: 30,
-                      child: Text(
-                        '₽ ' +
-                            tx.amount
-                                .toStringAsFixed(2), //number shows decimals
-                        // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
-                        // or '\$ ' + tx.amount.toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: (14),
-                          color: tx.amount > 2000
-                              ? Colors.red
-                              : Theme.of(context).primaryColorDark,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text(
+                            '₽ ' +
+                                tx.amount
+                                    .toStringAsFixed(2), //number shows decimals
+                            // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
+                            // or '\$ ' + tx.amount.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: (14),
+                              color: tx.amount > 2000
+                                  ? Colors.red
+                                  : Theme.of(context).primaryColorDark,
+                            ),
+                          ),
                         ),
                       ),
                     ),
