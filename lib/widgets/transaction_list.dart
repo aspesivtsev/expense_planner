@@ -42,83 +42,23 @@ class TransactionList extends StatelessWidget {
             : ListView(
                 children: transactions.map((tx) {
                   String day = dateFormat.format(tx.date).toUpperCase();
-                  return Card(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 100,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: tx.amount > 2000
-                                    ? Colors.red
-                                    : Theme.of(context).primaryColorDark,
-                                width: 2),
-                          ),
-                          child: Text(
-                            '₽ ' +
-                                tx.amount
-                                    .toStringAsFixed(2), //number shows decimals
-                            // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
-                            // or '\$ ' + tx.amount.toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: (14),
-                              color: tx.amount > 2000
-                                  ? Colors.red
-                                  : Theme.of(context).primaryColorDark,
-                            ),
-                          ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 1),
-                          padding:
-                              EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-                          alignment: Alignment.center,
+                  return ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Text(
+                        '₽ ' +
+                            tx.amount
+                                .toStringAsFixed(2), //number shows decimals
+                        // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
+                        // or '\$ ' + tx.amount.toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: (14),
+                          color: tx.amount > 2000
+                              ? Colors.red
+                              : Theme.of(context).primaryColorDark,
                         ),
-                        Flexible(
-                          fit: FlexFit.tight,
-                          child: Container(
-                            padding: EdgeInsets.only(left: 5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  tx.title,
-                                  style: Theme.of(context).textTheme.headline6,
-                                  /*
-                            //old versio with manual coloring
-                            TextStyle(
-                                shadows: [
-                                  Shadow(
-                                    blurRadius: 7.0,
-                                    color: Colors.grey[400],
-                                    offset: Offset(1.0, 1.0),
-                                  ),
-                                ],
-                                //fontWeight: FontWeight.bold,
-                                fontSize: (15),
-                                color: Theme.of(context).primaryColorDark),*/
-                                  textAlign: TextAlign.left,
-                                ),
-                                Text(
-                                  //the first variant is more customizable
-                                  //https://api.flutter.dev/flutter/intl/DateFormat-class.html
-                                  //DateFormat('d MMMM y H:mm').format(tx.date),
-                                  //DateFormat.yMMMMEEEEd('ru').format(tx.date),//works fine with russian too
-                                  dateFormat.format(tx
-                                      .date), //we can add .toUpperCase for example
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                                //если нужно выделить отдельно год например и совместить с текстом
-                                //Text("Year ${tx.date.year.toString()}"),
-                                Text(
-                                  timeFormat.format(tx.date),
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   );
                 }).toList(),
