@@ -46,7 +46,7 @@ class TransactionList extends StatelessWidget {
                     leading: CircleAvatar(
                       radius: 30,
                       child: Padding(
-                        padding: const EdgeInsets.all(6),
+                        padding: EdgeInsets.all(3),
                         child: FittedBox(
                           child: Text(
                             '₽ ' +
@@ -64,6 +64,14 @@ class TransactionList extends StatelessWidget {
                           ),
                         ),
                       ),
+                    ),
+                    title: Text(
+                      tx.title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMMEEEEd('ru').format(tx.date),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                   );
                 }).toList(),
