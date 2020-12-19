@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter App',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.deepPurple,
         accentColor: Colors.green,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -85,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
         amount: txAmount,
         date: DateTime.now(),
         id: DateTime.now().toString() + rnd);
-    //print(DateTime.now().toString() + rnd);
 
     setState(() {
       _userTransactions.add(newTx);

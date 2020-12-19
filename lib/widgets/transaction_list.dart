@@ -58,8 +58,8 @@ class TransactionList extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: (14),
                               color: tx.amount > 2000
-                                  ? Colors.red
-                                  : Theme.of(context).primaryColorDark,
+                                  ? Colors.yellowAccent[400]
+                                  : Theme.of(context).primaryColorLight,
                             ),
                           ),
                         ),
