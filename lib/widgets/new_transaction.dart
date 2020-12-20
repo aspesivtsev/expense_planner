@@ -55,8 +55,8 @@ class _NewTransactionState extends State<NewTransaction> {
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (_) => submitData(),
                 inputFormatters: <TextInputFormatter>[
-                  //FilteringTextInputFormatter.digitsOnly //without dot
-                  FilteringTextInputFormatter.allow(RegExp('[0-9.,]')),
+                  FilteringTextInputFormatter.digitsOnly, //keyboard without dot
+                  //FilteringTextInputFormatter.allow(RegExp('[0-9.,]')), //keyboard with a dot
                 ],
                 //onChanged: (val) => amountInput = val, //this is shorter variant but with 1 line only
               ),

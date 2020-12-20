@@ -16,9 +16,10 @@ class TransactionList extends StatelessWidget {
     initializeDateFormatting('ru');
     dateFormat = new DateFormat.yMMMMEEEEd('ru');
     timeFormat = new DateFormat.Hm('ru');
+    double scrHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      height: 300,
+      height: scrHeight - 220,
       child: SafeArea(
         child: transactions.isEmpty
             ? Column(
@@ -42,36 +43,40 @@ class TransactionList extends StatelessWidget {
             : ListView(
                 children: transactions.map((tx) {
                   String day = dateFormat.format(tx.date).toUpperCase();
-                  return ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: EdgeInsets.all(3),
-                        child: FittedBox(
-                          child: Text(
-                            '₽ ' +
-                                tx.amount
-                                    .toStringAsFixed(2), //number shows decimals
-                            // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
-                            // or '\$ ' + tx.amount.toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: (14),
-                              color: tx.amount > 2000
-                                  ? Colors.yellowAccent[400]
-                                  : Theme.of(context).primaryColorLight,
+                  return Card(
+                    elevation: 4,
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 30,
+                        child: Padding(
+                          padding: EdgeInsets.all(3),
+                          child: FittedBox(
+                            child: Text(
+                              '₽ ' +
+                                  tx.amount.toStringAsFixed(
+                                      0), //number shows decimals
+                              // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
+                              // or '\$ ' + tx.amount.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: (14),
+                                color: tx.amount > 2000
+                                    ? Colors.red
+                                    : Theme.of(context).primaryColorLight,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    title: Text(
-                      tx.title,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat.yMMMMEEEEd('ru').format(tx.date),
-                      style: Theme.of(context).textTheme.headline6,
+                      title: Text(
+                        tx.title,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      subtitle: Text(
+                        DateFormat.yMMMMEEEEd('ru').format(tx.date),
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
                     ),
                   );
                 }).toList(),
