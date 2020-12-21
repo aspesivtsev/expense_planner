@@ -13,7 +13,6 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-
   final amountController = TextEditingController();
 
   void submitData() {
@@ -59,6 +58,15 @@ class _NewTransactionState extends State<NewTransaction> {
                   //FilteringTextInputFormatter.allow(RegExp('[0-9.,]')), //keyboard with a dot
                 ],
                 //onChanged: (val) => amountInput = val, //this is shorter variant but with 1 line only
+              ),
+              Row(
+                children: [
+                  Text('No Date Chosen'),
+                  FlatButton(
+                      textColor: Theme.of(context).primaryColor,
+                      onPressed: () {},
+                      child: Text('Chose Date')),
+                ],
               ),
               FlatButton(
                   shape: new RoundedRectangleBorder(
