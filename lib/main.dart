@@ -6,7 +6,7 @@ import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
 import 'dart:math';
 import 'package:intl/date_symbol_data_local.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 //initializeDateFormatting('ru', Null);
 
 void main() => runApp(MyApp());
@@ -15,6 +15,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('ru'),
+      ],
       title: 'Flutter App',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
