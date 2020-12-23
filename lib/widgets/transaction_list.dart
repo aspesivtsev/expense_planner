@@ -62,7 +62,7 @@ class TransactionList extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: (14),
                                 color: tx.amount > 2000
-                                    ? Colors.red
+                                    ? Colors.white
                                     : Theme.of(context).primaryColorLight,
                               ),
                             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 //import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -16,12 +16,13 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
+  DateTime _selectedDate;
 
   void _submitData() {
-    final enteredData = titleController.text;
-    final enteredAmount = double.parse(amountController.text);
+    final enteredData = _titleController.text;
+    final enteredAmount = double.parse(_amountController.text);
 
     if (enteredData.isEmpty || enteredAmount <= 0) {
       return; //exiting ad skipping addTx
@@ -41,9 +42,8 @@ class _NewTransactionState extends State<NewTransaction> {
         .then((pickedDate) {
       if (pickedDate == null) {
         return;
-      } else {
-        print(pickedDate);
       }
+      _selectedDate = pickedDate;
     });
   }
 
@@ -59,7 +59,7 @@ class _NewTransactionState extends State<NewTransaction> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               TextField(
-                controller: titleController,
+                controller: _titleController,
                 onSubmitted: (_) => _submitData(),
                 decoration: InputDecoration(labelText: 'Заголовок'),
                 //below is a manual equivalent of a controller, to process textinput
@@ -71,7 +71,7 @@ class _NewTransactionState extends State<NewTransaction> {
               TextField(
                 decoration: InputDecoration(labelText: 'Сумма'),
                 //keyboardType: TextInputType.number, //without a dot
-                controller: amountController,
+                controller: _amountController,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (_) => _submitData(),
                 inputFormatters: <TextInputFormatter>[
@@ -84,7 +84,9 @@ class _NewTransactionState extends State<NewTransaction> {
                 height: 70,
                 child: Row(
                   children: [
-                    Text('Дата не выбрана'),
+                    Text(_selectedDate == null
+                        ? 'Дата не выбрана'
+                        : DateFormat.yMd('ru').format(_selectedDate)),
                     FlatButton(
                         //color: Theme.of(context).primaryColorLight,
                         onPressed: () {
