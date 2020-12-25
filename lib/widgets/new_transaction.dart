@@ -21,10 +21,13 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate;
 
   void _submitData() {
+    if (_amountController.text.isEmpty) {
+      return;
+    }
     final enteredData = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
 
-    if (enteredData.isEmpty || enteredAmount <= 0) {
+    if (enteredData.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return; //exiting ad skipping addTx
     }
 
@@ -43,7 +46,9 @@ class _NewTransactionState extends State<NewTransaction> {
       if (pickedDate == null) {
         return;
       }
-      _selectedDate = pickedDate;
+      setState(() {
+        _selectedDate = pickedDate;
+      });
     });
   }
 
@@ -84,9 +89,11 @@ class _NewTransactionState extends State<NewTransaction> {
                 height: 70,
                 child: Row(
                   children: [
-                    Text(_selectedDate == null
-                        ? 'Дата не выбрана'
-                        : DateFormat.yMd('ru').format(_selectedDate)),
+                    Expanded(
+                      child: Text(_selectedDate == null
+                          ? 'Дата не выбрана'
+                          : 'Выбранная дата: ${DateFormat.yMd('ru').format(_selectedDate)}'),
+                    ),
                     FlatButton(
                         //color: Theme.of(context).primaryColorLight,
                         onPressed: () {
