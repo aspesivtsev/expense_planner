@@ -8,8 +8,9 @@ class TransactionList extends StatelessWidget {
   DateFormat dateFormat;
   DateFormat timeFormat;
   final List<Transaction> transactions;
+  final Function deleteTx;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class TransactionList extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: (14),
                                 color: tx.amount > 2000
-                                    ? Colors.white
+                                    ? Colors.redAccent[400]
                                     : Theme.of(context).primaryColorLight,
                               ),
                             ),
@@ -76,6 +77,11 @@ class TransactionList extends StatelessWidget {
                       subtitle: Text(
                         DateFormat.yMMMMEEEEd('ru').format(tx.date),
                         style: Theme.of(context).textTheme.headline6,
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        color: Theme.of(context).errorColor,
+                        onPressed: () => deleteTx(tx.id),
                       ),
                     ),
                   );

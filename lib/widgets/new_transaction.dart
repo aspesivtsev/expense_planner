@@ -31,7 +31,7 @@ class _NewTransactionState extends State<NewTransaction> {
       return; //exiting ad skipping addTx
     }
 
-    widget.addTx(enteredData, enteredAmount);
+    widget.addTx(enteredData, enteredAmount, _selectedDate);
     Navigator.of(context).pop(); //close modal form after entering data
   }
 

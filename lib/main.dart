@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         accentColor: Colors.blue[900],
+        errorColor: Colors.redAccent[400],
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
             headline6: TextStyle(
@@ -81,7 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime chosenDate) {
     Random random = new Random();
     final String rnd = random
         .nextInt(100)
@@ -91,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final newTx = Transaction(
         title: txTitle,
         amount: txAmount,
-        date: DateTime.now(),
+        date: chosenDate,
         id: DateTime.now().toString() + rnd);
 
     setState(() {
@@ -99,7 +101,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
+
+      /// or longer variant, this is equivalent
+      /// _userTransactions.removeWhere((tx){return tx.id == id;});
+    });
+  }
+
   void _startAddNewTransaction(BuildContext ctx) {
+    ///this is starting the modal popup form for entering data for a new transaction
     showModalBottomSheet(
       context: ctx,
       builder: (_) {
@@ -141,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: double.infinity,
               child: Chart(_recentTransactions),
             ),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),
