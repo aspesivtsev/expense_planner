@@ -26,6 +26,7 @@ class Chart extends StatelessWidget {
       return {
         'day': DateFormat.E('ru').format(weekDay).substring(0, 2),
         'amount': totalSum,
+        'date': DateFormat.d('ru').format(weekDay),
       };
     }).reversed.toList();
   }
@@ -54,6 +55,7 @@ class Chart extends StatelessWidget {
               fit: FlexFit.tight,
               child: ChartBar(
                   data['day'],
+                  data['date'],
                   data['amount'],
                   totalSpending == 0.0
                       ? 0.0
