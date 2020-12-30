@@ -20,7 +20,8 @@ class TransactionList extends StatelessWidget {
     double scrHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      height: scrHeight - 220,
+      height: scrHeight * 0.75,
+      //height: scrHeight - 220,
       child: SafeArea(
         child: transactions.isEmpty
             ? Column(
