@@ -127,33 +127,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      centerTitle: true,
+      toolbarHeight: 35,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        )
+      ],
+      title: Text(
+        "планировщик расходов".toUpperCase(),
+        style: TextStyle(fontSize: 17),
+      ),
+    );
     initializeDateFormatting('ru');
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 35,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startAddNewTransaction(context),
-          )
-        ],
-        title: Text(
-          "планировщик расходов".toUpperCase(),
-          style: TextStyle(fontSize: 17),
-        ),
-      ),
-      //in body we can wrapp it all to SingleChildScrollView() to make the whole body of the app scrollable on the screen
+      appBar: appBar,
       body: SingleChildScrollView(
+        ///in body we can wrapp it all to SingleChildScrollView() to make the whole body of the app scrollable on the screen
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.3,
+
+              ///0.3 means 20% of the screen height
               width: double.infinity,
               child: Chart(_recentTransactions),
             ),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.7,
+
+                ///0.7 means 80% of the screen height
+                child: TransactionList(_userTransactions, _deleteTransaction)),
           ],
         ),
       ),
