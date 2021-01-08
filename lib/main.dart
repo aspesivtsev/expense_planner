@@ -1,5 +1,6 @@
 //import 'package:expense_planner/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './models/transaction.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
@@ -9,7 +10,18 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 //initializeDateFormatting('ru', Null);
 
-void main() => runApp(MyApp());
+///void main() => runApp(MyApp());///this is default initializing of MyApp without any additional parameters
+void main() {
+  ///below lines can be used to restrict to use app only in portrait mode
+  ///WidgetsFlutterBinding.ensureInitialized();
+  ///SystemChrome.setPreferredOrientations([
+  ///  DeviceOrientation.portraitUp,
+  ///  DeviceOrientation.portraitDown,
+  ///]);
+
+  ///this is the restriction to use app only in portrait modes
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -32,7 +44,7 @@ class MyApp extends StatelessWidget {
         textTheme: ThemeData.light().textTheme.copyWith(
             headline6: TextStyle(
               fontFamily: 'OpenSans',
-              fontSize: 18,
+              fontSize: 16,
             ),
             button: TextStyle(color: Colors.white)),
         appBarTheme: AppBarTheme(
@@ -73,6 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
         amount: 600.00,
         date: DateTime.parse("2020-12-07 09:00")),*/
   ];
+
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -127,6 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final _isLandscape = mediaQuery.orientation == Orientation.landscape;
     final appBar = AppBar(
       centerTitle: true,
       toolbarHeight: 35,
@@ -142,6 +158,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     initializeDateFormatting('ru');
+
+    final txListWidget = Container(
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.7,
+
+        ///0.7 means 80% of the screen height
+        child: TransactionList(_userTransactions, _deleteTransaction));
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -150,24 +176,46 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              height: (MediaQuery.of(context).size.height -
-                      appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.3,
-
-              ///0.3 means 20% of the screen height
-              width: double.infinity,
-              child: Chart(_recentTransactions),
-            ),
-            Container(
-                height: (MediaQuery.of(context).size.height -
+            if (_isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Показать график'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (!_isLandscape)
+              Container(
+                height: (mediaQuery.size.height -
                         appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
-                    0.7,
+                        mediaQuery.padding.top) *
+                    0.3,
 
-                ///0.7 means 80% of the screen height
-                child: TransactionList(_userTransactions, _deleteTransaction)),
+                ///0.3 means 30% of the screen height
+                width: double.infinity,
+                child: Chart(_recentTransactions),
+              ),
+            if (!_isLandscape) txListWidget,
+            if (_isLandscape)
+              _showChart
+                  ? Container(
+                      height: (mediaQuery.size.height -
+                              appBar.preferredSize.height -
+                              mediaQuery.padding.top) *
+                          0.7,
+
+                      ///0.3 means 20% of the screen height
+                      width: double.infinity,
+                      child: Chart(_recentTransactions),
+                    )
+                  : txListWidget
           ],
         ),
       ),

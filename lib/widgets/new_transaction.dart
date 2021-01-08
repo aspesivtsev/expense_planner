@@ -55,73 +55,82 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('ru');
-    return Card(
-        //margin: EdgeInsets.all(1),
-        elevation: 8,
-        child: Container(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              TextField(
-                controller: _titleController,
-                onSubmitted: (_) => _submitData(),
-                decoration: InputDecoration(labelText: 'Заголовок'),
-                //below is a manual equivalent of a controller, to process textinput
-                /*onChanged: (val) {
-                        titleInput = val;
-                        print(titleInput);
-                      },*/
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: 'Сумма'),
-                //keyboardType: TextInputType.number, //without a dot
-                controller: _amountController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onSubmitted: (_) => _submitData(),
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly, //keyboard without dot
-                  //FilteringTextInputFormatter.allow(RegExp('[0-9.,]')), //keyboard with a dot
-                ],
-                //onChanged: (val) => amountInput = val, //this is shorter variant but with 1 line only
-              ),
-              Container(
-                height: 70,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(_selectedDate == null
-                          ? 'Дата не выбрана'
-                          : 'Выбранная дата: ${DateFormat.yMd('ru').format(_selectedDate)}'),
-                    ),
-                    FlatButton(
-                        //color: Theme.of(context).primaryColorLight,
-                        onPressed: () {
-                          _presentDatePicker();
-                        },
-                        child: Text(
-                          'Выбрать дату',
-                          style: TextStyle(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.bold),
-                        )),
-                  ],
+    return SingleChildScrollView(
+      child: Card(
+          //margin: EdgeInsets.all(1),
+          elevation: 8,
+          child: Container(
+            padding: EdgeInsets.only(
+                top: 10,
+                left: 10,
+                right: 10,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+
+            ///bottom controlling of modal window
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                TextField(
+                  controller: _titleController,
+                  onSubmitted: (_) => _submitData(),
+                  decoration: InputDecoration(labelText: 'Заголовок'),
+                  //below is a manual equivalent of a controller, to process textinput
+                  /*onChanged: (val) {
+                          titleInput = val;
+                          print(titleInput);
+                        },*/
                 ),
-              ),
-              RaisedButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(3.0)),
-                  color: Theme.of(context).primaryColor,
-                  textColor: Theme.of(context).textTheme.button.color,
-                  child: Text('Добавить'),
-                  onPressed: () {
-                    //print(titleInput);
-                    //print(titleController.text);
-                    //print(amountController.text);
-                    _submitData();
-                  }),
-            ],
-          ),
-        ));
+                TextField(
+                  decoration: InputDecoration(labelText: 'Сумма'),
+                  //keyboardType: TextInputType.number, //without a dot
+                  controller: _amountController,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  onSubmitted: (_) => _submitData(),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter
+                        .digitsOnly, //keyboard without dot
+                    //FilteringTextInputFormatter.allow(RegExp('[0-9.,]')), //keyboard with a dot
+                  ],
+                  //onChanged: (val) => amountInput = val, //this is shorter variant but with 1 line only
+                ),
+                Container(
+                  height: 70,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(_selectedDate == null
+                            ? 'Дата не выбрана'
+                            : 'Выбранная дата: ${DateFormat.yMd('ru').format(_selectedDate)}'),
+                      ),
+                      FlatButton(
+                          //color: Theme.of(context).primaryColorLight,
+                          onPressed: () {
+                            _presentDatePicker();
+                          },
+                          child: Text(
+                            'Выбрать дату',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColorDark,
+                                fontWeight: FontWeight.bold),
+                          )),
+                    ],
+                  ),
+                ),
+                RaisedButton(
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(3.0)),
+                    color: Theme.of(context).primaryColor,
+                    textColor: Theme.of(context).textTheme.button.color,
+                    child: Text('Добавить'),
+                    onPressed: () {
+                      //print(titleInput);
+                      //print(titleController.text);
+                      //print(amountController.text);
+                      _submitData();
+                    }),
+              ],
+            ),
+          )),
+    );
   }
 }

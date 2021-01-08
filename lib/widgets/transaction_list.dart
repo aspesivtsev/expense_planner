@@ -21,24 +21,26 @@ class TransactionList extends StatelessWidget {
 
     return SafeArea(
       child: transactions.isEmpty
-          ? Column(
-              children: <Widget>[
-                Text(
-                  'Записей пока нет!',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 200,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
+          ? LayoutBuilder(builder: (ctx, constraints) {
+              return Column(
+                children: <Widget>[
+                  Text(
+                    'Записей пока нет!',
+                    style: Theme.of(context).textTheme.headline6,
                   ),
-                )
-              ],
-            )
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.7,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                ],
+              );
+            })
           : ListView(
               children: transactions.map((tx) {
                 String day = dateFormat.format(tx.date).toUpperCase();
@@ -49,7 +51,7 @@ class TransactionList extends StatelessWidget {
                     leading: CircleAvatar(
                       radius: 30,
                       child: Padding(
-                        padding: EdgeInsets.all(3),
+                        padding: EdgeInsets.all(0),
                         child: FittedBox(
                           child: Text(
                             '₽ ' +
@@ -76,11 +78,21 @@ class TransactionList extends StatelessWidget {
                       DateFormat.yMMMMEEEEd('ru').format(tx.date),
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () => deleteTx(tx.id),
-                    ),
+                    trailing: MediaQuery.of(context).size.width > 460
+                        ? FlatButton.icon(
+                            icon: Icon(Icons.delete),
+                            label: Text(
+                              'Удалить',
+                              style: TextStyle(fontSize: 10),
+                            ),
+                            textColor: Theme.of(context).errorColor,
+                            onPressed: () => deleteTx(tx.id),
+                          )
+                        : IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Theme.of(context).errorColor,
+                            onPressed: () => deleteTx(tx.id),
+                          ),
                   ),
                 );
               }).toList(),
