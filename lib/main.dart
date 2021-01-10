@@ -1,13 +1,18 @@
 //import 'package:expense_planner/widgets/new_transaction.dart';
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+//import 'package:flutter/services.dart';
+
 import './models/transaction.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
-import 'dart:math';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+
 //initializeDateFormatting('ru', Null);
 
 ///void main() => runApp(MyApp());///this is default initializing of MyApp without any additional parameters
@@ -143,20 +148,36 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final _isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final appBar = AppBar(
-      centerTitle: true,
-      toolbarHeight: 35,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () => _startAddNewTransaction(context),
-        )
-      ],
-      title: Text(
-        "планировщик расходов".toUpperCase(),
-        style: TextStyle(fontSize: 17),
-      ),
-    );
+    final PreferredSizeWidget appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: Text(
+              "планировщик расходов".toUpperCase(),
+              style: TextStyle(fontSize: 18),
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                GestureDetector(
+                  child: Icon(CupertinoIcons.add_circled),
+                  onTap: () => _startAddNewTransaction(context),
+                ),
+              ],
+            ),
+          )
+        : AppBar(
+            centerTitle: true,
+            toolbarHeight: 35,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () => _startAddNewTransaction(context),
+              )
+            ],
+            title: Text(
+              "планировщик расходов".toUpperCase(),
+              style: TextStyle(fontSize: 17),
+            ),
+          );
     initializeDateFormatting('ru');
 
     final txListWidget = Container(
@@ -168,9 +189,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ///0.7 means 80% of the screen height
         child: TransactionList(_userTransactions, _deleteTransaction));
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
         ///in body we can wrapp it all to SingleChildScrollView() to make the whole body of the app scrollable on the screen
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.start,
@@ -180,8 +200,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Показать график'),
-                  Switch(
+                  Text('Показать график',
+                      style: Theme.of(context).textTheme.headline6),
+                  Switch.adaptive(
+                    activeColor: Theme.of(context).accentColor,
                     value: _showChart,
                     onChanged: (val) {
                       setState(() {
@@ -219,11 +241,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _startAddNewTransaction(context),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: pageBody,
+            navigationBar: appBar,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: pageBody,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => _startAddNewTransaction(context),
+                  ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          );
   }
 }

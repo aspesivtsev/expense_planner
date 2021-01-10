@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -102,17 +105,28 @@ class _NewTransactionState extends State<NewTransaction> {
                             ? 'Дата не выбрана'
                             : 'Выбранная дата: ${DateFormat.yMd('ru').format(_selectedDate)}'),
                       ),
-                      FlatButton(
-                          //color: Theme.of(context).primaryColorLight,
-                          onPressed: () {
-                            _presentDatePicker();
-                          },
-                          child: Text(
-                            'Выбрать дату',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColorDark,
-                                fontWeight: FontWeight.bold),
-                          )),
+                      Platform.isIOS
+                          ? CupertinoButton(
+                              onPressed: () {
+                                _presentDatePicker();
+                              },
+                              child: Text(
+                                'Выбрать дату',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColorDark,
+                                    fontWeight: FontWeight.bold),
+                              ))
+                          : FlatButton(
+                              //color: Theme.of(context).primaryColorLight,
+                              onPressed: () {
+                                _presentDatePicker();
+                              },
+                              child: Text(
+                                'Выбрать дату',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColorDark,
+                                    fontWeight: FontWeight.bold),
+                              )),
                     ],
                   ),
                 ),
