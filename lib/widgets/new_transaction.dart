@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'adaptive_button.dart';
 //import 'package:flutter_localizations/flutter_localizations.dart';
 
 //import './user_transactions.dart';
@@ -105,28 +106,7 @@ class _NewTransactionState extends State<NewTransaction> {
                             ? 'Дата не выбрана'
                             : 'Выбранная дата: ${DateFormat.yMd('ru').format(_selectedDate)}'),
                       ),
-                      Platform.isIOS
-                          ? CupertinoButton(
-                              onPressed: () {
-                                _presentDatePicker();
-                              },
-                              child: Text(
-                                'Выбрать дату',
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColorDark,
-                                    fontWeight: FontWeight.bold),
-                              ))
-                          : FlatButton(
-                              //color: Theme.of(context).primaryColorLight,
-                              onPressed: () {
-                                _presentDatePicker();
-                              },
-                              child: Text(
-                                'Выбрать дату',
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColorDark,
-                                    fontWeight: FontWeight.bold),
-                              )),
+                      AdaptiveFlatButton('Пососать член', _presentDatePicker),
                     ],
                   ),
                 ),
