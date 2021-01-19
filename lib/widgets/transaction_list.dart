@@ -81,7 +81,7 @@ class TransactionList extends StatelessWidget {
                     trailing: MediaQuery.of(context).size.width > 460
                         ? FlatButton.icon(
                             icon: Icon(Icons.delete),
-                            label: Text(
+                            label: const Text(
                               'Удалить',
                               style: TextStyle(fontSize: 10),
                             ),
