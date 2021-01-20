@@ -1,4 +1,5 @@
 import '../models/transaction.dart';
+import './transaction_item.dart';
 import 'package:flutter/material.dart';
 //import './user_transactions.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +29,7 @@ class TransactionList extends StatelessWidget {
                     'Записей пока нет!',
                     style: Theme.of(context).textTheme.headline6,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -44,57 +45,7 @@ class TransactionList extends StatelessWidget {
           : ListView(
               children: transactions.map((tx) {
                 String day = dateFormat.format(tx.date).toUpperCase();
-                return Card(
-                  elevation: 4,
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: EdgeInsets.all(0),
-                        child: FittedBox(
-                          child: Text(
-                            '₽ ' +
-                                tx.amount
-                                    .toStringAsFixed(0), //number shows decimals
-                            // or use interpolation if it is a dollar sign '\$ ${tx.amount}',
-                            // or '\$ ' + tx.amount.toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: (14),
-                              color: tx.amount > 2000
-                                  ? Colors.redAccent[400]
-                                  : Theme.of(context).primaryColorLight,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Text(
-                      tx.title,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    subtitle: Text(
-                      DateFormat.yMMMMEEEEd('ru').format(tx.date),
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    trailing: MediaQuery.of(context).size.width > 460
-                        ? FlatButton.icon(
-                            icon: Icon(Icons.delete),
-                            label: const Text(
-                              'Удалить',
-                              style: TextStyle(fontSize: 10),
-                            ),
-                            textColor: Theme.of(context).errorColor,
-                            onPressed: () => deleteTx(tx.id),
-                          )
-                        : IconButton(
-                            icon: Icon(Icons.delete),
-                            color: Theme.of(context).errorColor,
-                            onPressed: () => deleteTx(tx.id),
-                          ),
-                  ),
-                );
+                return TransactionItem(transaction: tx, deleteTx: deleteTx);
               }).toList(),
             ),
     );
