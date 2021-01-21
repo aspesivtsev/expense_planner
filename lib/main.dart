@@ -144,7 +144,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  List<Widget> _buildLandscapeContent(Widget txListWidget) {
+  List<Widget> _buildLandscapeContent(
+      MediaQueryData mediaQuery, AppBar appBar, Widget txListWidget) {
     return [
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -161,7 +162,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      txListWidget
+      _showChart
+          ? Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+
+              ///0.3 means 20% of the screen height
+              width: double.infinity,
+              child: Chart(_recentTransactions),
+            )
+          : txListWidget
     ];
   }
 
@@ -235,22 +247,10 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             //...means that we are flatterening the list. so list widgets are exposed as separate widgets next to each other
-            if (_isLandscape) ..._buildLandscapeContent(txListWidget),
+            if (_isLandscape)
+              ..._buildLandscapeContent(mediaQuery, appBar, txListWidget),
             if (!_isLandscape)
               ..._buildPortraitContent(mediaQuery, appBar, txListWidget),
-            if (_isLandscape)
-              _showChart
-                  ? Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.7,
-
-                      ///0.3 means 20% of the screen height
-                      width: double.infinity,
-                      child: Chart(_recentTransactions),
-                    )
-                  : txListWidget
           ],
         ),
       ),
