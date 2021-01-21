@@ -144,35 +144,42 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildLandscapeContent() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('Показать график', style: Theme.of(context).textTheme.headline6),
-        Switch.adaptive(
-          activeColor: Theme.of(context).accentColor,
-          value: _showChart,
-          onChanged: (val) {
-            setState(() {
-              _showChart = val;
-            });
-          },
-        ),
-      ],
-    );
+  List<Widget> _buildLandscapeContent(Widget txListWidget) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Показать график', style: Theme.of(context).textTheme.headline6),
+          Switch.adaptive(
+            activeColor: Theme.of(context).accentColor,
+            value: _showChart,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+          ),
+        ],
+      ),
+      txListWidget
+    ];
   }
 
-  Widget _buildPortraitContent(MediaQueryData mediaQuery, AppBar appBar) {
-    return Container(
-      height: (mediaQuery.size.height -
-              appBar.preferredSize.height -
-              mediaQuery.padding.top) *
-          0.3,
+  List<Widget> _buildPortraitContent(
+      MediaQueryData mediaQuery, AppBar appBar, Widget txListWidget) {
+    return <Widget>[
+      Container(
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.3,
 
-      ///0.3 means 30% of the screen height
-      width: double.infinity,
-      child: Chart(_recentTransactions),
-    );
+        ///0.3 means 30% of the screen height
+        width: double.infinity,
+        child: Chart(_recentTransactions),
+      ),
+      txListWidget
+    ];
   }
 
   @override
@@ -217,7 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mediaQuery.padding.top) *
             0.7,
 
-        ///0.7 means 80% of the screen height
+        ///0.7 means 70% of the screen height
         child: TransactionList(_userTransactions, _deleteTransaction));
 
     final pageBody = SafeArea(
@@ -227,13 +234,10 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (_isLandscape) _buildLandscapeContent(),
+            //...means that we are flatterening the list. so list widgets are exposed as separate widgets next to each other
+            if (_isLandscape) ..._buildLandscapeContent(txListWidget),
             if (!_isLandscape)
-              _buildPortraitContent(
-                mediaQuery,
-                appBar,
-              ),
-            if (!_isLandscape) txListWidget,
+              ..._buildPortraitContent(mediaQuery, appBar, txListWidget),
             if (_isLandscape)
               _showChart
                   ? Container(
