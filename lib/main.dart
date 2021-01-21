@@ -144,6 +144,37 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _buildLandscapeContent() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Показать график', style: Theme.of(context).textTheme.headline6),
+        Switch.adaptive(
+          activeColor: Theme.of(context).accentColor,
+          value: _showChart,
+          onChanged: (val) {
+            setState(() {
+              _showChart = val;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPortraitContent(MediaQueryData mediaQuery, AppBar appBar) {
+    return Container(
+      height: (mediaQuery.size.height -
+              appBar.preferredSize.height -
+              mediaQuery.padding.top) *
+          0.3,
+
+      ///0.3 means 30% of the screen height
+      width: double.infinity,
+      child: Chart(_recentTransactions),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -196,33 +227,11 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (_isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Показать график',
-                      style: Theme.of(context).textTheme.headline6),
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
+            if (_isLandscape) _buildLandscapeContent(),
             if (!_isLandscape)
-              Container(
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.3,
-
-                ///0.3 means 30% of the screen height
-                width: double.infinity,
-                child: Chart(_recentTransactions),
+              _buildPortraitContent(
+                mediaQuery,
+                appBar,
               ),
             if (!_isLandscape) txListWidget,
             if (_isLandscape)
