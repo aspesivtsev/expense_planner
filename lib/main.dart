@@ -197,6 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildAppBar() {
     return Platform.isIOS
         ? CupertinoNavigationBar(
+            backgroundColor: Theme.of(context).primaryColor,
             middle: Text(
               "планировщик расходов".toUpperCase(),
               style: TextStyle(fontSize: 18),
