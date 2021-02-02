@@ -45,7 +45,12 @@ class TransactionList extends StatelessWidget {
           : ListView(
               children: transactions.map((tx) {
                 String day = dateFormat.format(tx.date).toUpperCase();
-                return TransactionItem(transaction: tx, deleteTx: deleteTx);
+                return TransactionItem(
+                    key:
+                        //UniqueKey(), //unique key makes every item to get random color every time the list changes
+                        ValueKey(tx.id),
+                    transaction: tx,
+                    deleteTx: deleteTx);
               }).toList(),
             ),
     );

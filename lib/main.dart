@@ -200,7 +200,8 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: Theme.of(context).primaryColor,
             middle: Text(
               "планировщик расходов".toUpperCase(),
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(
+                  fontSize: 18, color: Theme.of(context).primaryColorLight),
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
